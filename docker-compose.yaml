@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  desabio-app:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    image: desafio-app
+    container_name: desafio-app
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/app

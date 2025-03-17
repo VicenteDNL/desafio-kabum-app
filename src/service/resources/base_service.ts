@@ -51,7 +51,7 @@ export const baseService = {
   delete: async <T>(uri: string, auth = false) => {
     try {
       const response = await api(auth).delete<T>(uri);
-      return response.data;
+      return response;
     } catch (e: any) {
       handleHttpException(e.status ?? 403);
       return e;

@@ -1,45 +1,44 @@
-import axios from "axios";
-import { AuthService } from "./auth_service";
 import { response } from "./contracts/response";
 import { clientOutput } from "./contracts/client_output";
 import { clientInput } from "./contracts/client_input";
-
-const API_URL = "http://localhost:8080";
-
-const api = axios.create({
-  baseURL: API_URL,
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-    Authorization: "Bearer " + AuthService.getToken(),
-  },
-});
+import { baseService } from "./resources/base_service";
 
 export const ClientService = {
   getAll: async () => {
-    const response = await api.get<response<clientOutput[]>>("/client");
+    const response = await baseService.get<response<clientOutput[]>>(
+      "/client",
+      true
+    );
     return response.data;
   },
   getById: async (id: string) => {
-    const response = await api.get(`/client/${id}`);
+    const response = await baseService.get<response<clientOutput>>(
+      `/client/${id}`,
+      true
+    );
     return response.data;
   },
   create: async (clientData: clientInput) => {
-    const response = await api.post<response<clientOutput>>(
+    const response = await baseService.post<response<clientOutput>>(
       "/client",
-      clientData
+      clientData,
+      true
     );
     return response.data;
   },
   update: async (id: number, clientData: clientInput) => {
-    const response = await api.put<response<clientOutput>>(
+    const response = await baseService.put<response<clientOutput>>(
       `/client/${id}`,
-      clientData
+      clientData,
+      true
     );
     return response.data;
   },
   delete: async (id: number) => {
-    const response = await api.delete<response<null>>(`/client/${id}`);
+    const response = await baseService.delete<response<null>>(
+      `/client/${id}`,
+      true
+    );
     return response.data;
   },
 };

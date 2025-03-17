@@ -1,29 +1,21 @@
-import axios from "axios";
-import { AuthService } from "./auth_service";
 import { addressInput } from "./contracts/address_input ";
 import { response } from "./contracts/response";
 import { addressOutput } from "./contracts/address_output";
-
-const API_URL = "http://localhost:8080";
-
-const api = axios.create({
-  baseURL: API_URL,
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-    Authorization: "Bearer " + AuthService.getToken(),
-  },
-});
+import { baseService } from "./resources/base_service";
 
 export const AddressService = {
   getByClientId: async (clientId: string) => {
-    const response = await api.get(`/client/${clientId}/address`);
+    const response = await baseService.get<response<addressOutput>>(
+      `/client/${clientId}/address`,
+      true
+    );
     return response.data;
   },
   create: async (clientId: number, address: addressInput) => {
-    const response = await api.post<response<addressOutput>>(
+    const response = await baseService.post<response<addressOutput>>(
       `/client/${clientId}/address`,
-      address
+      address,
+      true
     );
     return response.data;
   },
@@ -32,15 +24,17 @@ export const AddressService = {
     addressId: number,
     addressData: addressInput
   ) => {
-    const response = await api.put<response<addressOutput>>(
+    const response = await baseService.put<response<addressOutput>>(
       `/client/${clientId}/address/${addressId}`,
-      addressData
+      addressData,
+      true
     );
     return response.data;
   },
   delete: async (clientId: number, addressId: number) => {
-    const response = await api.delete(
-      `/client/${clientId}/address/${addressId}`
+    const response = await baseService.delete<response<null>>(
+      `/client/${clientId}/address/${addressId}`,
+      true
     );
     return response.data;
   },

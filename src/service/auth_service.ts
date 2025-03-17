@@ -1,21 +1,16 @@
-import axios from "axios";
 import { userRegister } from "./contracts/user_register";
 import { loginInput } from "./contracts/login_input";
 import { userOutput } from "./contracts/user_output";
 import { loginOutput } from "./contracts/login_output";
 import { response } from "./contracts/response";
-const API_URL = "http://localhost:8080";
-const api = axios.create({
-  baseURL: API_URL,
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
-});
+import { baseService } from "./resources/base_service";
 
 export const AuthService = {
   login: async (user: loginInput) => {
-    const response = await api.post<response<loginOutput>>("/login", user);
+    const response = await baseService.post<response<loginOutput>>(
+      "/login",
+      user
+    );
 
     if (response.data.status === "success") {
       localStorage.setItem("authToken", response.data.data.token);
@@ -25,7 +20,7 @@ export const AuthService = {
   },
 
   register: async (user: userRegister) => {
-    const response = await api.post("/register", user);
+    const response = await baseService.post("/register", user);
     if (response.data.status === "success") {
       localStorage.setItem("authToken", response.data.data.token);
       localStorage.setItem("user", JSON.stringify(response.data.data.user));

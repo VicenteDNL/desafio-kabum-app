@@ -5,6 +5,7 @@ import { Box, Button, CloseButton, Dialog, Portal } from "@chakra-ui/react";
 import React from "react";
 import FormAddreess from "./form_address";
 import { addressInput } from "@/service/contracts/address_input ";
+import { FaPlus } from "react-icons/fa6";
 
 interface CreateAddressProps {
   clientId: number;
@@ -41,7 +42,8 @@ const CreateAddress = ({ clientId, handle }: CreateAddressProps) => {
     <Dialog.Root size="cover" placement="center" motionPreset="slide-in-bottom">
       <Dialog.Trigger asChild>
         <Box display="flex" justifyContent="center">
-          <Button size="xs" colorPalette="teal" variant="solid" mb={10} mt={5}>
+          <Button size="sm" colorPalette="teal" variant="solid" mb={10} mt={5}>
+            <FaPlus />
             Adicionar novo endereço
           </Button>
         </Box>

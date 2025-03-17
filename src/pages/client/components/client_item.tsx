@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import {
+  Alert,
+  Box,
   Button,
   Collapsible,
   Dialog,
@@ -18,6 +20,10 @@ import CreateAddress from "./create_address";
 import { addressOutput } from "../../..//service/contracts/address_output";
 import { AddressService } from "../../../service/address_service";
 import EditClient from "./edit_client";
+import {
+  IoIosArrowDropdownCircle,
+  IoIosArrowDropupCircle,
+} from "react-icons/io";
 
 interface ClienteItemProps {
   client: clientOutput;
@@ -26,6 +32,7 @@ interface ClienteItemProps {
 
 const ClienteItem = ({ handleDeletedClient, client }: ClienteItemProps) => {
   const [isDeleting, setIsDeleting] = useState(false);
+  const [expanded, setExpanded] = useState(true);
   const [clientState, setClientState] = useState(client);
   const [addressList, setAddressList] = useState<addressOutput[]>(
     client.addresses
@@ -155,26 +162,57 @@ const ClienteItem = ({ handleDeletedClient, client }: ClienteItemProps) => {
             </Portal>
           </Dialog.Root>
         </Table.Cell>
+        <Table.Cell>
+          <IconButton
+            m={2}
+            color="gray.300"
+            aria-label="expanded"
+            variant="ghost"
+            onClick={() => {
+              setExpanded(!expanded);
+            }}
+          >
+            {expanded ? (
+              <IoIosArrowDropupCircle />
+            ) : (
+              <IoIosArrowDropdownCircle />
+            )}
+          </IconButton>
+        </Table.Cell>
       </Table.Row>
       <Table.Row key={client.id + "address"}>
-        <Table.Cell p={0} colSpan={7}>
-          <Collapsible.Root key={"c" + client.id} open={true}>
+        <Table.Cell p={0} colSpan={8}>
+          <Collapsible.Root key={"c" + client.id} open={expanded}>
             <Collapsible.Content>
-              {addressList.map((address) => {
-                return (
-                  <CardAdrress
-                    address={address}
-                    client={client}
-                    handleDeleteAddress={handleDeleteAddress}
-                  ></CardAdrress>
-                );
-              })}
+              {addressList.length === 0 ? (
+                <Box
+                  m={5}
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <Alert.Root status="warning" width={300}>
+                    <Alert.Indicator />
+                    <Alert.Title>Nenhum endereço cadastrado.</Alert.Title>
+                  </Alert.Root>
+                </Box>
+              ) : (
+                addressList.map((address) => {
+                  return (
+                    <CardAdrress
+                      address={address}
+                      client={client}
+                      handleDeleteAddress={handleDeleteAddress}
+                    ></CardAdrress>
+                  );
+                })
+              )}
+              <CreateAddress
+                handle={handleCreated}
+                clientId={client.id}
+              ></CreateAddress>
             </Collapsible.Content>
           </Collapsible.Root>
-          <CreateAddress
-            handle={handleCreated}
-            clientId={client.id}
-          ></CreateAddress>
         </Table.Cell>
       </Table.Row>
     </>

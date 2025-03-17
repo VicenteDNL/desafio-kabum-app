@@ -48,6 +48,7 @@ const Client = () => {
             <Table.ColumnHeader>RG</Table.ColumnHeader>
             <Table.ColumnHeader>Telefone</Table.ColumnHeader>
             <Table.ColumnHeader>Ações</Table.ColumnHeader>
+            <Table.ColumnHeader></Table.ColumnHeader>
           </Table.Row>
         </Table.Header>
         <Table.Body>

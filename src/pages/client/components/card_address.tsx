@@ -27,7 +27,7 @@ export const CardAdrress = ({
   const [addressState, setAddressState] = useState<addressOutput>(address);
 
   return (
-    <Card.Root my={3} mx={10}>
+    <Card.Root my={3} mx={20}>
       <Card.Body>
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <DataList.Root size="sm">

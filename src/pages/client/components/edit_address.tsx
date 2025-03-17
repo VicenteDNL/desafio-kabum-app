@@ -1,6 +1,6 @@
 import { addressOutput } from "../../../service/contracts/address_output";
 import { CloseButton, Dialog, IconButton, Portal } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { MdEditSquare } from "react-icons/md";
 import FormAddreess from "./form_address";
 import { addressInput } from "../.././../service/contracts/address_input ";
@@ -14,6 +14,8 @@ interface EditAddressProps {
 }
 
 const EditAddress = ({ address, clientId, handle }: EditAddressProps) => {
+  const [openDialog, setOpenDialog] = useState(false);
+
   const handleUpdateAddress = async (addressInput: addressInput) => {
     try {
       var response = await AddressService.update(
@@ -44,9 +46,22 @@ const EditAddress = ({ address, clientId, handle }: EditAddressProps) => {
     }
   };
   return (
-    <Dialog.Root size="cover" placement="center" motionPreset="slide-in-bottom">
+    <Dialog.Root
+      size="cover"
+      placement="center"
+      motionPreset="slide-in-bottom"
+      open={openDialog}
+    >
       <Dialog.Trigger asChild>
-        <IconButton m={1} size="xs" aria-label="edit" background="gray.300">
+        <IconButton
+          m={1}
+          size="xs"
+          aria-label="edit"
+          background="gray.300"
+          onClick={() => {
+            setOpenDialog(!openDialog);
+          }}
+        >
           <MdEditSquare />
         </IconButton>
       </Dialog.Trigger>
@@ -57,13 +72,20 @@ const EditAddress = ({ address, clientId, handle }: EditAddressProps) => {
             <Dialog.Header>
               <Dialog.Title>Editar Endereço</Dialog.Title>
               <Dialog.CloseTrigger asChild>
-                <CloseButton size="sm" />
+                <CloseButton
+                  size="sm"
+                  onClick={() => {
+                    setOpenDialog(false);
+                  }}
+                />
               </Dialog.CloseTrigger>
             </Dialog.Header>
             <Dialog.Body>
               <FormAddreess
                 handleConfirm={handleUpdateAddress}
-                handleCancel={() => {}}
+                handleCancel={() => {
+                  setOpenDialog(false);
+                }}
                 address={address}
               ></FormAddreess>
             </Dialog.Body>

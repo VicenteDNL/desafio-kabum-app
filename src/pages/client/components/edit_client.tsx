@@ -1,5 +1,5 @@
 import { CloseButton, Dialog, IconButton, Portal } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import FormClient from "./form_client";
 import { MdEditSquare } from "react-icons/md";
 import { clientOutput } from "../../../service/contracts/client_output";
@@ -12,6 +12,7 @@ interface EditClientProps {
   handle: (client: clientOutput) => void;
 }
 const EditClient = ({ client, handle }: EditClientProps) => {
+  const [openDialog, setOpenDialog] = useState(false);
   const handleUpdateClient = async (clientInput: clientInput) => {
     try {
       var response = await ClientService.update(client.id, clientInput);
@@ -38,9 +39,22 @@ const EditClient = ({ client, handle }: EditClientProps) => {
     }
   };
   return (
-    <Dialog.Root size="cover" placement="center" motionPreset="slide-in-bottom">
+    <Dialog.Root
+      size="cover"
+      placement="center"
+      motionPreset="slide-in-bottom"
+      open={openDialog}
+    >
       <Dialog.Trigger asChild>
-        <IconButton m={1} size="xs" aria-label="edit" background="orange.400">
+        <IconButton
+          m={1}
+          size="xs"
+          aria-label="edit"
+          background="orange.400"
+          onClick={() => {
+            setOpenDialog(!openDialog);
+          }}
+        >
           <MdEditSquare />
         </IconButton>
       </Dialog.Trigger>
@@ -49,15 +63,22 @@ const EditClient = ({ client, handle }: EditClientProps) => {
         <Dialog.Positioner>
           <Dialog.Content>
             <Dialog.Header>
-              <Dialog.Title>Editar Endereço</Dialog.Title>
+              <Dialog.Title>Editar Cliente</Dialog.Title>
               <Dialog.CloseTrigger asChild>
-                <CloseButton size="sm" />
+                <CloseButton
+                  size="sm"
+                  onClick={() => {
+                    setOpenDialog(false);
+                  }}
+                />
               </Dialog.CloseTrigger>
             </Dialog.Header>
             <Dialog.Body>
               <FormClient
                 handleConfirm={handleUpdateClient}
-                handleCancel={() => {}}
+                handleCancel={() => {
+                  setOpenDialog(false);
+                }}
                 client={client}
               ></FormClient>
             </Dialog.Body>

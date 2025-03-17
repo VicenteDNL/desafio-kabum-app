@@ -1,6 +1,6 @@
 import { toaster } from "../../../components/ui/toaster";
 import { Box, Button, CloseButton, Dialog, Portal } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { clientOutput } from "../../../service/contracts/client_output";
 import { clientInput } from "../../../service/contracts/client_input";
 import { ClientService } from "../../../service/client_service";
@@ -11,6 +11,8 @@ interface CreateClientProps {
 }
 
 const CreateClient = ({ handle }: CreateClientProps) => {
+  const [openDialog, setOpenDialog] = useState(false);
+
   const handleCreateClient = async (clientInput: clientInput) => {
     try {
       var response = await ClientService.create(clientInput);
@@ -37,7 +39,12 @@ const CreateClient = ({ handle }: CreateClientProps) => {
     }
   };
   return (
-    <Dialog.Root size="cover" placement="center" motionPreset="slide-in-bottom">
+    <Dialog.Root
+      size="cover"
+      placement="center"
+      motionPreset="slide-in-bottom"
+      open={openDialog}
+    >
       <Dialog.Trigger asChild>
         <Box display="flex" justifyContent="end">
           <Button
@@ -46,6 +53,9 @@ const CreateClient = ({ handle }: CreateClientProps) => {
             variant="solid"
             mb={10}
             mt={5}
+            onClick={() => {
+              setOpenDialog(!openDialog);
+            }}
           >
             Adicionar novo cliente
           </Button>
@@ -58,13 +68,20 @@ const CreateClient = ({ handle }: CreateClientProps) => {
             <Dialog.Header>
               <Dialog.Title>Cadastrar Cliente</Dialog.Title>
               <Dialog.CloseTrigger asChild>
-                <CloseButton size="sm" />
+                <CloseButton
+                  size="sm"
+                  onClick={() => {
+                    setOpenDialog(false);
+                  }}
+                />
               </Dialog.CloseTrigger>
             </Dialog.Header>
             <Dialog.Body>
               <FormClient
                 handleConfirm={handleCreateClient}
-                handleCancel={() => {}}
+                handleCancel={() => {
+                  setOpenDialog(false);
+                }}
               ></FormClient>
             </Dialog.Body>
           </Dialog.Content>

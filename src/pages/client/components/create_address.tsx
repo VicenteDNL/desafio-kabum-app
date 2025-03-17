@@ -2,7 +2,7 @@ import { toaster } from "../../../components/ui/toaster";
 import { AddressService } from "../../../service/address_service";
 import { addressOutput } from "../../../service/contracts/address_output";
 import { Box, Button, CloseButton, Dialog, Portal } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import FormAddreess from "./form_address";
 import { addressInput } from "@/service/contracts/address_input ";
 import { FaPlus } from "react-icons/fa6";
@@ -13,6 +13,8 @@ interface CreateAddressProps {
 }
 
 const CreateAddress = ({ clientId, handle }: CreateAddressProps) => {
+  const [openDialog, setOpenDialog] = useState(false);
+
   const handleCreateAddress = async (address: addressInput) => {
     try {
       var response = await AddressService.create(clientId, address);
@@ -39,10 +41,24 @@ const CreateAddress = ({ clientId, handle }: CreateAddressProps) => {
     }
   };
   return (
-    <Dialog.Root size="cover" placement="center" motionPreset="slide-in-bottom">
+    <Dialog.Root
+      size="cover"
+      placement="center"
+      motionPreset="slide-in-bottom"
+      open={openDialog}
+    >
       <Dialog.Trigger asChild>
         <Box display="flex" justifyContent="center">
-          <Button size="sm" colorPalette="teal" variant="solid" mb={10} mt={5}>
+          <Button
+            size="sm"
+            colorPalette="teal"
+            variant="solid"
+            mb={10}
+            mt={5}
+            onClick={() => {
+              setOpenDialog(!openDialog);
+            }}
+          >
             <FaPlus />
             Adicionar novo endereço
           </Button>
@@ -55,13 +71,20 @@ const CreateAddress = ({ clientId, handle }: CreateAddressProps) => {
             <Dialog.Header>
               <Dialog.Title>Cadastrar Endereço</Dialog.Title>
               <Dialog.CloseTrigger asChild>
-                <CloseButton size="sm" />
+                <CloseButton
+                  size="sm"
+                  onClick={() => {
+                    setOpenDialog(false);
+                  }}
+                />
               </Dialog.CloseTrigger>
             </Dialog.Header>
             <Dialog.Body>
               <FormAddreess
                 handleConfirm={handleCreateAddress}
-                handleCancel={() => {}}
+                handleCancel={() => {
+                  setOpenDialog(false);
+                }}
               ></FormAddreess>
             </Dialog.Body>
           </Dialog.Content>

@@ -32,7 +32,7 @@ interface ClienteItemProps {
 
 const ClienteItem = ({ handleDeletedClient, client }: ClienteItemProps) => {
   const [isDeleting, setIsDeleting] = useState(false);
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
   const [clientState, setClientState] = useState(client);
   const [addressList, setAddressList] = useState<addressOutput[]>(
     client.addresses

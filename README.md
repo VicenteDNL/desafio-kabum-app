@@ -1,46 +1,74 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Desafio Kabum
 
-## Available Scripts
+Projeto Desenvolvido para o processo seletivo Desenvolvedor(a) Fullstack SR na Kabum
 
-In the project directory, you can run:
+## Descrição do Desafio
 
-### `npm start`
+Construa seu Portal Administrativo! 🛡️💻
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Objetivo Geral 🎯
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Criar um Portal Administrativo para gestão de clientes, acessado por usuários devidamente autenticados (login e senha).
 
-### `npm test`
+#### Detalhamento da Missão 🔍
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1️⃣ Desenvolver uma área administrativa onde os Guardiões (usuários) devem acessar com login e senha
 
-### `npm run build`
+2️⃣ Construir um Gerenciador de Clientes com as seguintes funcionalidades
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Listar Clientes
+- Incluir Clientes
+- Editar Clientes
+- Excluir Clientes
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+##### Detalhes do Cadastro de Cliente 📋
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Nome
+Data de Nascimento
+CPF
+RG
+Telefone
+Relacionamento Especial: O cliente pode ter 1 ou N endereços cadastrados!
 
-### `npm run eject`
+### Requisitos Técnicos (A Arte do Código) ⚙️
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Linguagem Principal: **PHP** (proibido o uso de frameworks como Laravel ou CodeIgniter – é hora de mostrar sua essência ninja!).
+- Banco de Dados: MySQL.
+- Front-End: Escolha livre, conforme suas habilidades de combate!
+- README: Deve conter os passos para inicializar o projeto e guiar futuros aliados!
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Bônus (Diferenciais para ganhar XP) 🏆
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1️⃣ Utilização dos princípios SOLID para fortalecer sua arquitetura de código.
+2️⃣ Implementação de Testes Automatizados – garanta a segurança do sistema!
+3️⃣ Estrutura com Camadas Desacopladas, garantindo modularidade.
+4️⃣ Design e estrutura voltados à Escalabilidade – pensando no futuro da missão.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Instalação
 
-## Learn More
+Para executar esse projeto é necessario o [Docker](https://www.docker.com) instalado na sua máaquina.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Passo 1
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Clonar projeto
+
+ ```bash
+  git clone https://github.com/VicenteDNL/desafio-kabum-app.git
+```
+
+### Passo 2
+
+Acessar o diretório
+
+ ```bash
+  cd desafio-kabum-app
+```
+
+### Passo 3
+
+Iniciar os container docker.
+
+ ```bash
+  docker compose up -d
+```

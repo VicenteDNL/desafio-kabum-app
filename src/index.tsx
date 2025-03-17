@@ -6,6 +6,7 @@ import LoginPage from "./pages/login";
 import RegisterPage from "./pages/register";
 import NotFound from "./pages/not_found";
 import { Provider } from "./components/ui/provider";
+import ProtectedRoute from "./components/protected_route";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -15,7 +16,9 @@ root.render(
     <Provider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<App />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/" element={<App />} />
+          </Route>
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
           <Route path="/*" element={<NotFound />} />

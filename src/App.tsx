@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { ColorModeButton } from "./components/ui/color-mode";
-import { FaCircleUser, FaUserShield } from "react-icons/fa6";
+import { FaRegUser, FaUserShield } from "react-icons/fa6";
 import { FaUserFriends } from "react-icons/fa";
 import Client from "./pages/client";
 import { IoMdExit } from "react-icons/io";
@@ -29,10 +29,10 @@ function App() {
       >
         <Heading size="lg">Desafio Kabum</Heading>
         <Box>
-          <Popover.Root>
+          <Popover.Root size="xs">
             <Popover.Trigger asChild>
-              <Button size="sm" background="gray.400">
-                <FaCircleUser />
+              <Button size="sm" variant="ghost" mx={2}>
+                <FaRegUser />
               </Button>
             </Popover.Trigger>
             <Portal>
@@ -44,8 +44,10 @@ function App() {
                     <Text fontWeight="light">{user?.email}</Text>
 
                     <Button
-                      size="xs"
-                      background="gray.400"
+                      size="sm"
+                      variant="ghost"
+                      color="white"
+                      background="teal.500"
                       mt={5}
                       onClick={() => {
                         AuthService.logout();

@@ -26,14 +26,14 @@ const CreateClient = ({ handle }: CreateClientProps) => {
           title: response.message,
           type: "error",
         });
-        return true;
+        return false;
       }
     } catch (e) {
       toaster.create({
         title: "Ocorreu um erro ao criar cliente. Tente novamente",
         type: "error",
       });
-      return true;
+      return false;
     }
   };
   return (

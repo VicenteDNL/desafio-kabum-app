@@ -82,7 +82,7 @@ export const CardAdrress = ({
                       <Dialog.Title>Confirmar exclusão</Dialog.Title>
                     </Dialog.Header>
                     <Dialog.Body>
-                      Realmente deseja excluir este endereço do{" "}
+                      Realmente deseja excluir este endereço da(o){" "}
                       <b>{client.name}</b>?
                     </Dialog.Body>
                     <Dialog.Footer>

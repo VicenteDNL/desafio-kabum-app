@@ -3,6 +3,12 @@ import { clientOutput } from "../../../service/contracts/client_output";
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { Box, Button, Grid, GridItem, Input } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { formatDate } from "../../../util/formatDate";
+import { formatDocument } from "../../../util/formatDocument";
+import { formatPhone } from "../../../util/formatPhone";
+import { formatDateToRequest } from "../../../util/formatDateToRequest";
+import { formatDocmentToRequest } from "../../../util/formatDocmentToRequest";
+import { formatPhoneToRequest } from "../../../util/formatPhoneToRequest";
 
 interface FormClientProps {
   handleConfirm: (client: clientInput) => Promise<boolean>;
@@ -35,10 +41,10 @@ const FormClient = ({
   var handleConf = () => {
     setSaving(true);
     handleConfirm({
-      date_of_birth: dateOfBirth,
-      document: document,
+      date_of_birth: formatDateToRequest(dateOfBirth),
+      document: formatDocmentToRequest(document),
       name: name,
-      phone_number: phoneNumber,
+      phone_number: formatPhoneToRequest(phoneNumber),
       general_registration: generalRegistration,
     })
       .then((success) => {
@@ -47,6 +53,16 @@ const FormClient = ({
       .finally(() => {
         setSaving(false);
       });
+  };
+
+  const handleChangeData = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDateOfBirth(formatDate(event.target.value));
+  };
+  const handleChangeCPF = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDocument(formatDocument(event.target.value));
+  };
+  const handleChangePhone = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPhoneNumber(formatPhone(event.target.value));
   };
 
   return (
@@ -68,12 +84,13 @@ const FormClient = ({
         <FormControl mb={20}>
           <FormLabel>CPF</FormLabel>
           <Input
+            maxLength={14}
             required
             disabled={isSaving}
             placeholder="N° do CPF"
             type="text"
             value={document}
-            onChange={(e) => setDocument(e.target.value)}
+            onChange={handleChangeCPF}
           />
         </FormControl>
         <FormControl mb={20}>
@@ -84,7 +101,7 @@ const FormClient = ({
             placeholder="Data de nasc."
             type="text"
             value={dateOfBirth}
-            onChange={(e) => setDateOfBirth(e.target.value)}
+            onChange={handleChangeData}
           />
         </FormControl>
         <FormControl mb={20}>
@@ -95,7 +112,7 @@ const FormClient = ({
             placeholder="(xx) x xxxx-xxxx"
             type="text"
             value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
+            onChange={handleChangePhone}
           />
         </FormControl>
         <FormControl mb={20}>

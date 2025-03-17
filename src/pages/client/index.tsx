@@ -11,7 +11,7 @@ const Client = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [clients, setClients] = useState<clientOutput[]>([]);
 
-  var handleDeleteClient = (id: number) => {
+  var handleDeletedClient = (id: number) => {
     var news = clients.filter((c) => c.id !== id);
     setClients(news);
   };
@@ -55,7 +55,7 @@ const Client = () => {
             return (
               <ClienteItem
                 client={client}
-                handleDeleteClient={handleDeleteClient}
+                handleDeletedClient={handleDeletedClient}
               ></ClienteItem>
             );
           })}

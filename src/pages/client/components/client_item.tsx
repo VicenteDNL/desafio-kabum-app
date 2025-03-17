@@ -21,10 +21,10 @@ import EditClient from "./edit_client";
 
 interface ClienteItemProps {
   client: clientOutput;
-  handleDeleteClient: (id: number) => void;
+  handleDeletedClient: (id: number) => void;
 }
 
-const ClienteItem = ({ client }: ClienteItemProps) => {
+const ClienteItem = ({ handleDeletedClient, client }: ClienteItemProps) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [clientState, setClientState] = useState(client);
   const [addressList, setAddressList] = useState<addressOutput[]>(
@@ -73,7 +73,7 @@ const ClienteItem = ({ client }: ClienteItemProps) => {
             title: response.message,
             type: "success",
           });
-          handleDeleteClient(id);
+          handleDeletedClient(id);
         } else {
           toaster.create({
             title: response.message,

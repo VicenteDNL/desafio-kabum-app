@@ -34,11 +34,8 @@ export const AuthService = {
   },
 
   logout: async () => {
-    const response = await api.post("/logout");
-    if (response.data.status === "success") {
-      localStorage.removeItem("authToken");
-      localStorage.removeItem("user");
-    }
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("user");
   },
 
   getToken: (): string | null => {

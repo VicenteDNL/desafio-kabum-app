@@ -72,3 +72,9 @@ Iniciar os container docker.
  ```bash
   docker compose up -d
 ```
+Após a inicialização do container docker a aplicação estará disponivel em:
+
+ ```bash
+http://localhost:3000
+```
+

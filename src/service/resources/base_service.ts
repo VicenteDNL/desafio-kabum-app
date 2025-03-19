@@ -15,7 +15,7 @@ const api = (auth: boolean) => {
 };
 
 const handleHttpException = (status: number) => {
-  if ((status = 403)) {
+  if (status === 403) {
     window.location.href = "/login";
   }
 };
@@ -26,7 +26,7 @@ export const baseService = {
       const response = await api(auth).post<T>(uri, data);
       return response;
     } catch (e: any) {
-      handleHttpException(e.status ?? 403);
+      handleHttpException(e.status ?? 500);
       return e;
     }
   },
@@ -35,7 +35,7 @@ export const baseService = {
       const response = await api(auth).get<T>(uri);
       return response;
     } catch (e: any) {
-      handleHttpException(e.status ?? 403);
+      handleHttpException(e.status ?? 500);
       return e;
     }
   },
@@ -44,7 +44,7 @@ export const baseService = {
       const response = await api(auth).put<T>(uri, data);
       return response;
     } catch (e: any) {
-      handleHttpException(e.status ?? 403);
+      handleHttpException(e.status ?? 500);
       return e;
     }
   },

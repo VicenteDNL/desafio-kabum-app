@@ -12,8 +12,11 @@ const Client = () => {
   const [clients, setClients] = useState<clientOutput[]>([]);
 
   var handleDeletedClient = (id: number) => {
+    console.log(clients);
     var news = clients.filter((c) => c.id !== id);
-    setClients(news);
+    setClients([...news]);
+    console.log(clients);
+    console.log(news);
   };
 
   useEffect(() => {
@@ -81,6 +84,7 @@ const Client = () => {
             clients.map((client) => {
               return (
                 <ClienteItem
+                  key={client.id}
                   client={client}
                   handleDeletedClient={handleDeletedClient}
                 ></ClienteItem>
